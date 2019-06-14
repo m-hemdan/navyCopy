@@ -43,7 +43,7 @@
           </v-flex>
    
       </v-toolbar-title>
-           <v-flex xs4  offset-xs2 text-xs-center  hidden-sm-and-down>
+           <v-flex xs3  offset-xs2 text-xs-center  hidden-sm-and-down>
           <v-toolbar-items xs3   text-xs-center>
      <p  class="pragToolbar"  >free shipping on order of $50 or more  </p>
        <v-dialog 
