@@ -8,12 +8,22 @@ import vueResponsiveImage from 'vue-responsive-image'
 import dataFilter from './filters/filters'
 import currency from './filters/currency'
 import Vuelidate from 'vuelidate'
-
+import edit from './components/edit/editIssue.vue'
 Vue.config.productionTip = false
+Vue.component("app-edit",edit)
 Vue.use(vueResponsiveImage)
 Vue.use(Vuelidate)
 Vue.filter('lowercase',dataFilter)
 Vue.filter('currency',currency)
+Vue.directive("hightlight",{
+  bind(el,binding,vnode)
+  {
+    window.onscroll=function(){
+      
+    }
+  el.style.background="black"
+  }
+})
 new Vue({
   router,
   store,

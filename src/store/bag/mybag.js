@@ -71,6 +71,10 @@ export default
         else{
            alert("something occure")
         }
+        },
+        emptyBag(state)
+        {
+            state.mybag=[]
         }
     },
     actions:

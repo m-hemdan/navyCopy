@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    
-     <v-toolbar dark color="black" app  justify-space-between >
+  <v-app  
+  v-scroll="onScroll">
+     <v-toolbar dark app  justify-space-between :style="mystyle"   id="navbar" >
   <v-toolbar-title>
       <v-toolbar-items >    
             <v-btn flat @click="showDialog=! showDialog" class="hidden-md-and-up">
-            <v-icon >menu</v-icon>
+            <v-icon  >menu</v-icon>
             </v-btn>
              <v-flex hidden-md-only xs12  text-md-center md4>
             <v-btn 
@@ -20,7 +20,7 @@
            </v-flex>
      </v-toolbar-items>
           <v-flex xs4 hidden-sm-and-down hidden-lg-and-up>
-            <v-menu offset-y>
+            <v-menu transition="scale-transition">
             <template v-slot:activator="{ on }">
                 <v-btn
                 flat
@@ -45,19 +45,17 @@
       </v-toolbar-title>
            <v-flex xs3  offset-xs2 text-xs-center  hidden-sm-and-down>
           <v-toolbar-items xs3   text-xs-center>
-     <p  class="pragToolbar"  >free shipping on order of $50 or more  </p>
+       <p  class="pragToolbar"  >free shipping on order of $50 </p>
        <v-dialog 
-       persistent
-      
-      v-model="show"
-      width="550"
-     
-    >
+        persistent
+        v-model="show"
+        width="550"
+       >
       <template v-slot:activator="{ on }">
         <v-btn
-        style="width:10px"
-        class="btnToolbar"
-        flat
+          style="width:10px"
+          class="btnToolbar"
+          flat
           color="white--text"
           dark
           v-on="on"
@@ -78,7 +76,8 @@
         </v-card-title>
 
         <v-card-text>
-          <div class="dialog"> <h1 class="gray--text">free shipping + free return</h1>
+          <div class="dialog">
+             <h1 class="gray--text">free shipping + free return</h1>
           <v-layout>
             <v-flex xs6  class="">
               <h5>ON ORDERS OVER $50.No code. No Hassle.</h5>
@@ -112,7 +111,7 @@
         <v-flex xs3 offset-xs1 hidden-sm-and-down >
           <v-layout row wrap>
         <v-flex xs6>
-        <v-menu offset-y right v-if="userAuth">
+        <v-menu transition="slide-y-transition" offset-y right v-if="userAuth">
           <template v-slot:activator="{ on }">
           
              <v-btn flat  v-on="on" >
@@ -138,6 +137,8 @@
              <v-btn flat  v-on="on" >
            sign in <br>your acount
             <v-icon right>keyboard_arrow_down</v-icon>
+            <v-img src="https://oldnavy.gapcanada.ca/Asset_Archive/GFWeb/content/0011/943/943/assets/ubar_icon.svg"></v-img>
+                     
             </v-btn>
           </template>
           <v-list>
@@ -151,46 +152,167 @@
           </v-list>
         </v-menu>
         </v-flex>
-        <v-flex xs6>
-          <v-btn flat="">
-          <div v-if="loading"></div>
-          <div v-else
-           @click="goToCheckout"
-           class="bag">{{ mybag.length}} 
-          </div>
-        </v-btn>
+          
+        <v-flex xs6 >
+          <v-layout row wrap>
+             <v-flex xs3> 
+               <div class="text-xs-center">
+                 <v-bottom-sheet v-model="sheet">
+                   <template v-slot:activator>
+                     <v-btn flat>
+                       <v-avatar size="30">
+                       <v-img  src="https://oldnavy.gapcanada.ca/Asset_Archive/GFWeb/content/0011/943/943/assets/ubar_icon.svg"></v-img>
+                       </v-avatar>
+                     </v-btn>
+                   </template>
+                     <v-list>
+                     <v-layout row justify-center align-center >
+                       <v-flex xs6 sm4 md3 ma-2>
+                         <v-card>
+                           <v-img pa-2 src="https://oldnavy.gapcanada.ca/Asset_Archive/ONWeb/content/0017/217/878/assets/190610_016F_CA_BRONG40off_PromoDrawer_0616.svg"></v-img>
+                             <v-card-actions>
+                               <v-layout justify-space-between="" style="height:40px">
+                                 <v-btn flat>CLICK TO APPLAY</v-btn>
+                                 <div class="text-xs-center" hidden-md-and-down>
+                                    <v-dialog 
+                                    v-model="dialogFirstOffer"
+                                    width="800"
+                                    
+                                    
+                                    >
+                                    <template v-slot:activator="{on}">
+                                    <v-btn v-on="on" 
+                                    style="color:gray;font-size:12px">Details</v-btn>
+                                    </template>
+                                    <v-card style="border-radius:5px" >
+                                       <v-card-title
+                                          class="headline grey lighten-2">
+                                          <v-spacer></v-spacer>
+                                        
+                                          <v-icon flat right=""
+                                          @click="dialogFirstOffer=false" >close</v-icon>
+                                        
+                                      </v-card-title>
+                                       <v-card-text>
+                                         <p style="margin-bottom:20%;font-size:1.2rem;font-weight:bold">40% off at Banana Republic, Gap & Old Navy: Offer valid from 6/16/19 at 12:00am PT to 6/17/19 at 11:59pm PT in Canada only at Banana Republic online, Gap online, and Old Navy online. Offer cannot be applied to purchase of GiftCards, packaging, applicable taxes, or shipping and handling charges and not valid on the following merchandise: Banana Republic: Monogram, BR Picks, leather apparel, suede apparel, 100% cashmere, 100% silk, fragrances, sunglasses, Designer Collections & Collaborations, Heritage, the Pride Collection and third-party branded merchandise. Not combinable with other offers.; Gap: Performance Denim, Cashmere, Leather and/or Suede Apparel and Accessories, Ingrid & Isabel, BCRF, and Gap + Pride Collection.; Old Navy: Hot Deal, Today Only Deal, 2 Days Only Deal, Best Seller, Licensed Product, and Beauty merchandise. Offer not valid on international shipments. In-store prices may vary and may differ from online prices. Offer is good for multiple uses online during term of promotion. No minimum purchase required. Offer is non-transferable and not valid for cash or cash equivalent. Offer cannot be combined with Gap Inc. employee discount or any other offers or discounts. Offer subject to change without notice. Must enter promo code FAMILY at checkout to receive offer.</p>
+                                       </v-card-text>
+                                    </v-card>
+                                    </v-dialog>
+                                </div>
+                               </v-layout>
+                             </v-card-actions>
+                         </v-card>
+                       </v-flex>
+                         <v-flex xs6 sm4 md3 ma-2>
+                           <v-card>
+                           <v-img  src="https://oldnavy.gapcanada.ca/Asset_Archive/ONWeb/content/0017/217/878/assets/190610_011E_USCA_SCEarn_PromoDrawer.svg"></v-img>
+                           <v-card-actions>
+                           <v-layout justify-space-between=""  style="height:40px">
+                            <p style="width:130px;line-height:.85rem;font-size:12px">MINIMUM PURCHASE THRESHOLDS AND OTHER RESTRICTIONS APPLY.</p>
+                           <div class="text-xs-center">
+                             <v-dialog 
+                             v-model="dialogSecondOffer"
+                             width:500>
+                             <template v-slot:activator="{on}">
+                            <v-btn v-on="on" style="color:gray;font-size:12px">Details</v-btn>
+                             </template>
+                             <v-card>
+                               <v-card-title
+                             class="headline grey lighten-2"
+                              >
+                                 <v-spacer></v-spacer>
+                                 <v-icon right="" @click="dialogSecondOffer=false">close</v-icon>
+                               </v-card-title>
+                               <v-card-text>
+                                <p style="margin-bottom:20%;font-size:1.2rem;font-weight:bold">Super Cash: Earn up to $60 in Super Cash at Old Navy stores, Old Navy Outlet stores,
+                                   and online in Canada only from 6/10/19 at 12:00 am PT to 7/19/19 at 11:59 pm PT 
+                                   while supplies last. Redeem up to $60 in Super Cash at Old Navy stores,Old Navy Outlet
+                                    stores, and online in Canada only from 7/20/19 at 12:00 am PT to 7/28/19 at 11:59 pm PT. 
+                                    Not valid to earn or redeem at other Gap Inc. brands or in our clearance centers. Minimum 
+                                    purchase requirements to earn and redeem Super Cash excludes gift cards, packaging, 
+                                    shipping & handling, gift wrap, and taxes. EARN & REDEEM MINIMUM PURCHASE THRESHOLDS:
+                                     Spend $25-$49.99 to earn/redeem $10 coupon; Spend $50-$74.99 to earn/redeem $20 coupon;
+                                      Spend $75-$99.99 to earn/redeem $30 coupon; Spend $100-$124.99 to earn/redeem $40 coupon 
+                                      (can only earn online and in-store only during double earn period ); Spend $125-$149.99
+                                       to earn/redeem $50 coupon (can only earn online); Spend $150 or more to earn/redeem $60
+                                        coupon (can only earn in-store during double earn period). If amount of a purchase is 
+                                        less than the threshold to use full value of coupon, any unused balance of coupon will
+                                         be forfeited. Limit one Super Cash coupon earned and redeemed per transaction. 
+                                         Valid for one time use only and has no cash value. Cannot be combined with other 
+                                         offers/discounts, or employee discount. Coupon must be presented at time of purchase 
+                                         in store or enter code at online checkout. Upon redemption, coupon’s discount value
+                                          will be equally spread across all items in the transaction. If you return some or 
+                                          all merchandise purchased with coupon, the dollar value of coupon will not be 
+                                          refunded or credited back. Not responsible for lost or stolen coupons. Coupon 
+                                          cannot be applied to previous purchases. Coupon is non-transferrable and not for 
+                                          resale. See www.oldnavy.ca/supercash for details, or call 1-800-653-6289 with
+                                           questions</p> 
+                                </v-card-text>                     
+                                </v-card>
+                                </v-dialog>
+                           </div>
+                           </v-layout>
+                         </v-card-actions>
+                          </v-card>
+                         
+                       </v-flex>
+                     </v-layout>
+                   </v-list>
+                 </v-bottom-sheet>
+                  </div>
+             </v-flex>
+           <v-flex xs3>
+             <v-btn xs3 flat="">
+            <div v-if="loading"></div>
+            <div v-else
+            @click="goToCheckout"
+            class="bag">{{ mybag.length}} 
+            </div>
+          </v-btn>
+           </v-flex>
+          </v-layout>
         </v-flex>
           </v-layout>
         </v-flex>
   </v-toolbar>
   
-     
-     
+  
+  
 <v-divider></v-divider>
- <v-content>
-   <router-view name="a"></router-view>
-    <router-view></router-view>
-      
+  <v-content  >
+    
+        <router-view name="a"></router-view>
+        <router-view></router-view>
+ 
    </v-content>
    </v-app>
 </template>
 <script>
+import { setTimeout } from 'timers';
+
 
 export default {
 created()
 {   
- 
-
+ this.changePopUp
 },
   data()
   {
     return {
+      
+      mystyle:{
+        background:"black",
+        opacity:1
+      },
+      dialogSecondOffer:false,
+      dialogFirstOffer:false,
+      sheet:false,
       showDialog:false,
       show:false,
       titles:[
         {main:"Gap",link:'/sign'},
-        {main:"old navy",link:"/b"},
-        {main:'banana republic',link:'/c'},
+        {main:"old navy",link:"/"},
+        {main:'banana republic',link:'/issue'},
       ],
        items:[
         {data: "signIn",link:'/newCustomer'},
@@ -205,7 +327,8 @@ created()
       ]
     }
   },
-  computed:{
+  computed :
+  {
     content()
     {
       return this.$store.getters.loadContent
@@ -227,8 +350,15 @@ created()
     loading()
     {
       return this.$store.getters.loading
-    }
-  },
+    },
+    changePopUp()
+    {
+      setTimeout(() => {
+        this.sheet=true
+      }, 3000);
+    },
+  }
+  ,
   methods:
   {
     logout()
@@ -238,8 +368,27 @@ created()
     goToCheckout()
     {
       this.$router.push("/checkout")
+    },
+    onScroll(e)
+    {
+      if( window.pageYOffset > 500)
+      {
+        
+     //   console.log("down"+window.pageYOffset)
+        this.mystyle.opacity=.6
+      }
+      else
+      {
+    //    console.log("up"+window.pageYOffset)
+        this.mystyle.opacity=1
+        
+      }
+  
+    
     }
-  }
+   
+   
+  },
 }
 </script>
 

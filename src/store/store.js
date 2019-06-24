@@ -2,15 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import share from './share/share.js'
 import allSection from './allSection/allSection.js'
-import Women from './women/women.js'
+import women from './women/women.js'
 import mybag from './bag/mybag.js'
+import issue from './issue/issue.js'
 Vue.use(Vuex)
 export const store =new Vuex.Store({
     modules:{
    share,
    allSection,
-   Women,
-   mybag
+   women,
+   mybag,
+   issue
     }
    /* state:{
         pageContent:[

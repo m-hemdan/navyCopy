@@ -18,7 +18,7 @@
         </v-flex>
      </v-layout>
         <v-layout  row wrap>
-            <v-flex xs8>
+            <v-flex xs12 md8>
                 <div v-if="myBag.length==0">
                 
                  </div>
@@ -28,14 +28,14 @@
                          <v-layout v-for="item in myBag"
                          
                            :key="item.key" style="border:1px solid gray" pa-2 mt-2>
-                          <v-flex xs4 text-xs-center>
+                          <v-flex xs4 >
                               <div>
-                                  <v-img :src="item.url" style="width:200px;height:200px"></v-img>
-                                  <v-btn class="white" mt-2  >save for later</v-btn>
+                                  <v-img :src="item.url" ml-5 style="width:150px;height:200px"></v-img>
+                                  <v-btn class="white" mt-2 style="width:120px" >save for later</v-btn>
                               </div>
                           </v-flex>
                           <v-flex xs8 ma-2 pa-2>
-                            <div>
+                            <div class="descripAllItem">
                                <img style="width:60px;height:20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Old_Navy_Logo.svg/640px-Old_Navy_Logo.svg.png">
                                 <span class="descripItem"> {{item.description}}</span>
                                 <p style="font-size:11px;color:gray;margin-left:2px">#{{item.id}}</p>
@@ -65,7 +65,7 @@
                      </v-container>
                  </div>
             </v-flex>
-            <v-flex xs4 pa-2>
+            <v-flex xs12 md4 pa-2>
                 <div v-if=" ! isAuth"></div>
                 <div v-else>
                 <v-card class="blue-grey lighten-5 black--text" dark>
@@ -104,7 +104,7 @@
                   </div>
                     <v-layout>
                         <v-flex xs12>
-                            <v-btn style="width:100%" class="orange ">checkout
+                            <v-btn style="width:100%" class="checkout">checkout
                                 <v-icon right>arrow_forward</v-icon>
                             </v-btn>
                         </v-flex>
@@ -247,5 +247,11 @@ export default {
 .fade-enter, .fade-leave-to 
  {
   opacity: 0;
+}
+ @media screen and (max-width:700px) {
+  .descripAllItem :nth-child(n){
+   font-size: .95rem;
+   
+  }
 }
 </style>

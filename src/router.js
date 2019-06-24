@@ -13,6 +13,7 @@ import  admin from './components/admin/admin.vue'
 import checkOut from './components/checkout/checkout.vue'
 import tops from './components/pageContent/women/tops/tops.vue'
 import loadTops from './components/pageContent/women/tops/loadTops.vue'
+import issue from './components/issue/issue.vue'
 Vue.use(VueRouter)
 export const routes=[
     {
@@ -101,6 +102,14 @@ export const routes=[
              default:loadTops,
              a:home
          }
+     },
+     {
+     path:"/issue",
+     components:
+     {
+         default:issue,
+         a:home
+     }
      }
 ]
 export default new VueRouter({

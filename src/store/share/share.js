@@ -12,7 +12,7 @@ export default
             email:'',
             firstName:"",
            },
-     
+         
         myEmail:'',
         user:null,
         
@@ -22,7 +22,7 @@ export default
        
     },
     getters:{
-       
+    
         myEmail(state)
         {
             return state.myEmail
@@ -74,6 +74,7 @@ export default
            state.allUser.email=payload.email
            
         },
+    
        
         
     }
@@ -190,12 +191,13 @@ export default
             commit("setUser",{id:payload.uid,registerMeetup:[],fbkeys:{}
         })
         },
-        logout({commit,state})
+        logout({commit,getters,state})
         {
             firebase.auth().signOut()
             commit("setUser",null)
-            state.mybag=[]
-            router.push("/")
+             commit("emptyBag")
+           //  state.mybag=[]
+             router.push("/")
         }
         ,
         storeDataItem({commit},payload)
@@ -230,11 +232,11 @@ export default
                 return elem.id==id
              }))
             getters.loadMyBag.splice(itemDeleted,1)
-            commit("isloading",true)
+            
           //  firebase.database().ref("/bags/"+userId+"/mybag/"+id).remove()
             firebase.database().ref("/bags/"+userId).child("/mybag/"+id).remove()
             .then(data=>{
-                commit("isloading",false)
+          
                
             })
             .catch(error=>{

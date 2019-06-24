@@ -1,7 +1,12 @@
 <template>
    <div>
            <v-container>
-               <v-layout row justify-center>
+               <v-layout v-if="error">
+                 <v-flex>
+                     <v-alert :value="true" text="error.message" type="error" dismissible></v-alert>
+                 </v-flex>
+             </v-layout>
+               <v-layout row wrap justify-center>
                    <v-flex xs12 md5>
                        <v-form class="signInForm pa-5 ml-3" >
                          <h2>Sign In</h2>
@@ -64,6 +69,13 @@ export default {
             email:'',
             password:'',
             signUpEmail:''
+        }
+    },
+    computed:
+    {
+        error()
+        {
+          return this.$store.getters.error  
         }
     },
     methods:

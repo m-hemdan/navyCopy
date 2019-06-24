@@ -8,7 +8,16 @@
         </div>
         <v-container fluid v-else>
             <v-layout row wrap>
-                <v-flex sm3 class="text-xs-center" >
+                 <v-flex xs12 hidden-sm-and-up>
+                   <v-carousel>
+                       <v-carousel-item 
+                        v-for="i in 4"
+                        :key="i"
+                        :src="selectOneTop.image">
+                       </v-carousel-item>
+                   </v-carousel>
+               </v-flex>
+               <v-flex hidden-xs-only  sm3 md2 >
                    <div v-for="i in 4" :key="i" ma-2>
                         <v-img
                        class="ma-3 pa-5"
@@ -16,7 +25,7 @@
                         style="width:60%;height:50%">
                        </v-img></div>
                 </v-flex>
-                <v-flex sm5 class="text-xs-center">
+                 <v-flex hidden-xs-only sm9 md6 class="justify-center">
                     <div >
                       <v-img
                         :src="selectOneTop.image"
@@ -24,7 +33,7 @@
                        ></v-img>
                     </div>
                 </v-flex>
-                <v-flex sm4 class="" hidden-sm-and-down>
+                 <v-flex md4 xs12 >
                      <v-card class="ma-1 pa-2">
                        <v-card-title>
                         <div>
@@ -32,7 +41,7 @@
                             <h3>{{selectOneTop.price | currency}}</h3>
                             <p>Best seller</p>
                             <p>Color:leapard</p>
-                            <p>Size</p>
+                            <p>Size : {{size}}</p>
                             <v-btn flat class="size" v-for="i in 5" :key="i"
                             @click="selectSize(i+5)">{{(i+5)}}</v-btn>
                             <v-divider></v-divider>
@@ -77,7 +86,7 @@ export default {
     data() {
       return {
         id:this.$route.params.id,
-         size:0,
+         size:'',
          quant:1,
          paragWarning:""
         }
@@ -141,7 +150,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .size
 {
     border:1px solid;

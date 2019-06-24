@@ -6,8 +6,9 @@
                 <v-card class="ma-1 pa-1">
                     <v-img
                     :src="item.url" 
-                     @click="loadMyImage(item.id)"
-                    aspect-ratio="2.75">   </v-img>
+                    @click="loadMyImage(item.id)"
+                    aspect-ratio="2.75"> 
+                    </v-img>
                     <v-card-title>
                     
                     <div class="cardContent" style="line-height:80%">
@@ -36,6 +37,7 @@ export default {
     {
         store()
         {
+            console.log("arr"+this.$store.getters.shoesData)
           
             return this.$store.getters.shoesData
         }
